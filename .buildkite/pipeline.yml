@@ -1,0 +1,13 @@
+steps:
+
+  - label: ":maven: install"
+    command: mvn clean install -P pre-release
+    agents:
+      queue: java
+  
+  - wait: ~
+
+  - label: ":karate: fatjar"
+    command: cd karate-netty && mvn install -P fatjar && ls -lrt target/
+    agents:
+      queue: java
