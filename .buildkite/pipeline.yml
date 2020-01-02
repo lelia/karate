@@ -8,6 +8,6 @@ steps:
   - wait: ~
 
   - label: ":karate: fatjar"
-    command: cd karate-netty && ../mvnw install -P fatjar
+    command: ./mvnw install -f karate-netty/pom.xml -P fatjar
     agents:
       queue: java
