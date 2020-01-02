@@ -9,6 +9,7 @@ import org.influxdb.dto.QueryResult;
 import org.influxdb.dto.QueryResult.Series;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.List;
@@ -22,7 +23,12 @@ import static org.junit.Assert.assertThat;
 /**
  *
  * @author lelia
+ *
+ * This test is for demonstration purposes only, not intended for CI
+ * Remove @Ignore annotation if you have a local InfluxDB instance running!
+ *
  */
+@Ignore
 public class InfluxDBTest {
 
     private InfluxDB influxDB;
