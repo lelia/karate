@@ -76,7 +76,7 @@ public class InfluxDBTest {
                 .addField("failed", 5)
                 .addField("skipped", 12)
                 .addField("total", 60)
-                .addField("duration",619)
+                .addField("duration", 619)
                 .addField("status", "failed")
                 .build());
 
