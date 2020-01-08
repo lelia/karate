@@ -1,7 +1,7 @@
 /*
  * The MIT License
  *
- * Copyright 2019 Intuit Inc.
+ * Copyright 2020 Intuit Inc.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -21,40 +21,39 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.intuit.karate.job;
-
-import com.intuit.karate.Http;
-import java.util.Timer;
-import java.util.TimerTask;
+package com.intuit.karate.robot;
 
 /**
  *
  * @author pthomas3
  */
-public class JobExecutorPulse extends TimerTask {
-
-    private final JobExecutor executor;
-    private final Http http;
-    private static final int PERIOD = 15000; // fifteen seconds
-
-    public JobExecutorPulse(JobExecutor executor) {
-        this.executor = executor;
-        http = Http.forUrl(executor.appender, executor.serverUrl);
+public class Region {
+    
+    private Robot robot;
+    
+    public final int x;
+    public final int y;
+    public final int width;
+    public final int height;
+    
+    public Region(int x, int y, int width, int height) {
+        this.x = x;
+        this.y = y;
+        this.width = width;
+        this.height = height;        
     }
-
-    public void start() {
-        Timer timer = new Timer(true);
-        timer.schedule(this, PERIOD, PERIOD);
+    
+    public Region with(Robot robot) {
+        this.robot = robot;
+        return this;
     }
-
-    @Override
-    public void run() {
-        String chunkId = executor.chunkId;
-        JobMessage jm = new JobMessage("heartbeat");
-        jm.setChunkId(chunkId);
-        String jobId = executor.jobId;
-        String executorId = executor.executorId;        
-        JobExecutor.invokeServer(http, jobId, executorId, jm);
+    
+    public Location center() {
+        return new Location(x + width / 2, y + height / 2).with(robot);
     }
-
+    
+    public void highlight(int millis) {
+        RobotUtils.highlight(x, y, width, height, millis);
+    }
+    
 }
